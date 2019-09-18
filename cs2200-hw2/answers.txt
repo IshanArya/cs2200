@@ -1,0 +1,19 @@
+CS 2200 Fall 2019
+Homework 2
+
+Name:
+GT Username: iarya3
+
+Short Answer
+----------
+
+Instead of "goto LABEL", one could "lea" the LABEL into a temporary register
+and then "jalr" to that register, setting the RA to something random.
+
+Example:
+
+goto    label       ! instead of this
+
+lea     $t0, label  ! use this (assuming $t0 and $t1 is unused)
+jalr    $t1, $t0
+

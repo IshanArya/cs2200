@@ -1,0 +1,3 @@
+[submodule "cs2200-project1/microcode/gt-cs2200-ucgen"]
+	path = cs2200-project1/microcode/gt-cs2200-ucgen
+	url = https://github.com/Codetector1374/gt-cs2200-ucgen.git
