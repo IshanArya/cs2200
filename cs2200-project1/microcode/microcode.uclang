@@ -1,0 +1,62 @@
+
+
+@ADD: 0 add0
+@NAND: 1 nand0
+@ADDI: 2 addi0
+@LW: 3 lw0
+@SW: 4 sw0
+@GOTO: 5 goto0
+@JALR: 6 jalr0
+@HALT: 7 halt0
+@SKP: 8 skp0
+@LEA: 9 lea0
+
+fetch0: [DrPC, LdMAR, LdA] fetch1
+fetch1: [DrMEM, LdIR] fetch2
+fetch2: [ALU=3, DrALU, LdPC, OPTest]
+
+add0: [RegSel=1, DrREG, LdA] add1
+add1: [RegSel=2, DrREG, LdB] add2
+add2: [RegSel=0, ALU=0, DrALU, WrREG] fetch0
+
+nand0: [RegSel=1, DrREG, LdA] nand1
+nand1: [RegSel=2, DrREG, LdB] nand2
+nand2: [RegSel=0, ALU=2, DrALU, WrREG] fetch0
+
+addi0: [RegSel=1, DrREG, LdA] addi1
+addi1: [LdB, DrOFF] addi2
+addi2: [RegSel=0, ALU=0, DrALU, WrREG] fetch0
+
+lw0: [RegSel=1, DrREG, LdA] lw1
+lw1: [LdB, DrOFF] lw2
+lw2: [LdMAR, DrALU, ALU=0] lw3
+lw3: [DrMEM, WrREG, RegSel=0] fetch0
+
+sw0: [RegSel=1, DrREG, LdA] sw1
+sw1: [LdB, DrOFF] sw2
+sw2: [LdMAR, DrALU, ALU=0] sw3
+sw3: [WrMEM, DrREG, RegSel=0] fetch0
+
+goto0: [LdA, DrPC] goto1
+goto1: [LdB, DrOFF] goto2
+goto2: [LdPC, DrALU, ALU=0] fetch0
+
+jalr0: [WrREG, DrPC, RegSel=0] jalr1
+jalr1: [LdPC, DrREG, RegSel=1] fetch0
+
+halt0: [] halt0
+
+skp0: [LdA, DrREG, RegSel=1] skp1
+skp1: [LdB, DrREG, RegSel=2] skp2
+skp2: [LdCmp, DrALU, ALU=1] skp3
+skp3: [CHKCmp]
+
+skpTrue0: [LdA, DrPC] skpTrue1
+skpTrue1: [LdPC, DrALU, ALU=3] fetch0
+
+lea0: [LdA, DrPC] lea1
+lea1: [LdB, DrOFF] lea2
+lea2: [WrREG, RegSel=0, DrALU, ALU=0] fetch0
+
+!TRUE: 1 skpTrue0
+!FALSE: 0 fetch0
