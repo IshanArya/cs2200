@@ -32,5 +32,16 @@ extremely slowly.
 Problem 3B
 ----------
 
-/* Fix me */
+In real life, the expected time to complete a process is hard to compute due to inconsistencies
+when running programs on pure metal. Since this time remaining is not exact, SRTF will have to
+be run using approximations.
 
+Algorithm | Total Time in READY state
+   FIFO              389.9
+RR w/ 200 ms         284.0
+   SRTF              160.1
+
+SRTF has least waiting time because some processes may have longer IO times, so it is more efficient
+to run long IO computations simultaneously with long CPU times. Thus, if a process with small CPU
+time has longer IO time, the IO computations can run while large CPU computations are happening to
+save time in the long run.
