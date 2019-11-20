@@ -1,21 +1,50 @@
 CS 2200 Spring 2018
 Project 4
 
-Name:
-GT Username:
+Name: Ishan Arya
+GT Username: iarya3
 
 Problem 1B
 ----------
 
-/* Fix me */
+# of CPUs | Total Execution Time
+     1            67.6
+     2            36.0
+     4            33.2
+
+There is a linear relationship between number of CPUs and total execution time up to 2 CPUs.
+The execution time is no longer linear at 4 CPUs because the VM only has 2 CPUs, so 4 threads
+cannot truly run concurrently.
 
 Problem 2B
 ----------
 
-/* Fix me */
+Timeslices | Total Time in READY state
+   800                 325.4
+   600                 312.9
+   400                 298.8
+   200                 285.2
+
+In a real OS, if the timeslice is too small, the process won't have time to get any meaningful
+work done before it has to give up the processor. Thus each process will appear to be running
+extremely slowly.
 
 Problem 3B
 ----------
 
-/* Fix me */
+In real life, the expected time to complete a process is hard to compute due to inconsistencies
+when running programs on pure metal. Since this time remaining is not exact, SRTF will have to
+be run using approximations. Furthermore, it is hard to predict how long a process will take.
+Factors in the program such as loops and conditionals make it difficult to know when the process
+will terminate. A process could infinite loop, so it could have infinite remaining time but the
+scheduler would not know.
 
+Algorithm | Total Time in READY state
+   FIFO              389.9
+RR w/ 200 ms         284.0
+   SRTF              160.1
+
+SRTF has least waiting time because processes are removed from the ready queue much faster.
+Since the shortest remaining time process is run first, there is never a big process blocking
+many small processes from running. Therefore, these collective processes spend less time in the
+READY state and contribute less to the total waiting time.

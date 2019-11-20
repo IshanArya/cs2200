@@ -10,7 +10,6 @@
 
 #pragma once
 
-
 /*
  * The process_state_t enum contains the possible states for a process.
  *
@@ -23,6 +22,11 @@ typedef enum {
     PROCESS_TERMINATED
 } process_state_t;
 
+typedef enum {
+    SCHEDULER_FIFO,
+    SCHEDULER_ROUND_ROBIN,
+    SCHEDULER_SRTF
+} scheduler_type;
 
 /*
  * The Process Control Block
@@ -51,7 +55,6 @@ typedef struct {
     unsigned int time;
 } op_t;
 
-
 typedef struct _pcb_t {
     const unsigned int pid;
     const char *name;
@@ -61,13 +64,11 @@ typedef struct _pcb_t {
     struct _pcb_t *next;
 } pcb_t;
 
-
 /*
  * start_simulator() runs the OS simulation.  The number of CPUs (1-16) should
  * be passed as the parameter.
  */
 extern void start_simulator(unsigned int cpu_count);
-
 
 /*
  * context_switch() schedules a process on a CPU.  Note that it is
@@ -83,14 +84,12 @@ extern void start_simulator(unsigned int cpu_count);
 extern void context_switch(unsigned int cpu_id, pcb_t *pcb,
                            int preemption_time);
 
-
 /*
  * force_preempt() preempts a running process before its timeslice expires.
  * It should be used by the SRTF scheduler to preempt lower
  * priority processes so that higher priority processes may execute.
  */
 extern void force_preempt(unsigned int cpu_id);
-
 
 /*
  * mt_safe_usleep() is a thread-safe implementation of the usleep() function.
