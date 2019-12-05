@@ -4,3 +4,6 @@
 [submodule "cs2200-project2/gt-cs2200-ucgen"]
 	path = cs2200-project2/gt-cs2200-ucgen
 	url = https://github.com/Codetector1374/gt-cs2200-ucgen
+[submodule "cs2200-pipeline/gt-cs2200-ucgen"]
+	path = cs2200-pipeline/gt-cs2200-ucgen
+	url = https://github.com/Codetector1374/gt-cs2200-ucgen

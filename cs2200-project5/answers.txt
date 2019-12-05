@@ -1,0 +1,5 @@
+A. The protocol waits for an "ACK" packet to be received before sending the next part of the message. This way, if packets are lost, a "NACK" will be received and the protocol will know to resend the last packet to ensure the receiver has the entire message in the end.
+
+B. If the data fails to receive, there is more data to resend again if we are using a single packet. So if we have a failure rate of 99%, we will have to send the entire message numerous times before we finally get the message across. With multiple packets, we only have to resend smaller sections of the message upon failure. Furthermore, smaller packets can work on lower bandwidth as well.
+
+C. Send multiple packets at once and wait for an acknowledgement for a specific packet. So if you send packets labeled 1-5, the acknowledgement could be something like ACK-1, ACK-2, ACK-3, etc. Then, once a packet is acknowledged, send another packet without waiting for the rest to be acknowledged.
